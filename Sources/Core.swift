@@ -535,15 +535,15 @@ class Core: NSObject, UIGestureRecognizerDelegate {
             return false
         }
 
-        // When the current and initial point within grabber area, do scroll.
+        // When the current point is within grabber area but the initial location is not, do scroll.
         if grabberAreaFrame.contains(point), !grabberAreaFrame.contains(initialLocation) {
             return true
         }
 
         let scrollViewFrame = scrollView.convert(scrollView.bounds, to: surfaceView)
         guard
-            scrollViewFrame.contains(initialLocation), // When initialLocation not in scrollView, don't scroll.
-            !grabberAreaFrame.contains(point)           // When point within grabber area, don't scroll.
+            scrollViewFrame.contains(initialLocation), // When the initial location is not in scrollView, don't scroll.
+            !grabberAreaFrame.contains(initialLocation) // When the initial location is within grabber area, don't scroll.
         else {
             return false
         }
